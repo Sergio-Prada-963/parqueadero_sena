@@ -91,7 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- API interactions ---
-  const API_BASE = (location.hostname === '127.0.0.1' && location.port === '5500') ? 'http://localhost:3000' : location.origin;
+  // Use deployed backend URL for all frontend requests
+  const API_BASE = 'https://parqueadero-sena.vercel.app';
 
   async function safeJson(response) {
     const text = await response.text();

@@ -32,9 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return String(s).replace(/[&<>\"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;" })[c]);
   }
 
+  // Base URL for backend API (use deployed backend)
+  const API_BASE = 'https://parqueadero-sena.vercel.app';
+
   async function loadTarifas() {
     try {
-      const res = await fetch('/api/tarifas');
+      const res = await fetch(`${API_BASE}/api/tarifas`);
       tarifas = await res.json();
       renderTarifas();
     } catch (err) { console.error(err); }
@@ -73,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (ev.target.classList.contains('btn-borrar')) {
       if (!confirm('¿Eliminar tarifa?')) return;
       try {
-        await fetch(`/api/tarifas/${id}`, { method: 'DELETE' });
+        await fetch(`${API_BASE}/api/tarifas/${id}`, { method: 'DELETE' });
         await loadTarifas();
       } catch (err) { console.error(err); }
     }
@@ -89,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
       activo: 1
     };
     try {
-      await fetch(`/api/tarifas/${tarifaEditando.id}`, {
+      await fetch(`${API_BASE}/api/tarifas/${tarifaEditando.id}`, {
         method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
       });
       tarifaForm.reset();

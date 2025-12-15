@@ -17,9 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Llamada real al backend
     clearError();
     try {
-      // Detect backend origin. If you're serving frontend with Live Server (127.0.0.1:5500),
-      // point to the backend at localhost:3000. Otherwise use same origin.
-      const API_BASE = (location.hostname === '127.0.0.1' && location.port === '5500') ? 'http://localhost:3000' : location.origin;
+      // Use deployed backend URL for all frontend requests
+      const API_BASE = 'https://parqueadero-sena.vercel.app';
       const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password: pass, role })
